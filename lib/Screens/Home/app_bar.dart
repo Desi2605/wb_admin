@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wb_admin/Screens/User/MainScreen/user_screen.dart';
-import 'package:wb_admin/Screens/Session/session_screen.dart';
+import 'package:wb_admin/Screens/Session/View%20Session/session_screen.dart';
 import 'menu_item.dart';
 
 class CustomAppBar extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wb_admin/Screens/Session/sessionapp_bar.dart';
-import 'package:wb_admin/Screens/Session/session_body.dart';
+import 'package:wb_admin/Screens/Session/View%20Session/sessionapp_bar.dart';
+import 'package:wb_admin/Screens/Session/View%20Session/session_body.dart';
 
 class SessionScreen extends StatelessWidget {
   const SessionScreen({super.key});

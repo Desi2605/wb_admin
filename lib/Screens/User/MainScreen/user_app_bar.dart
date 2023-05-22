@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wb_admin/Screens/Home/home_screen.dart';
 import 'package:wb_admin/Screens/Home/menu_item.dart';
+import 'package:wb_admin/Screens/User/EditUser/view_edituser.dart';
 import 'package:wb_admin/Screens/User/UserStatus/view_status.dart';
 import 'package:wb_admin/Screens/User/Viewuser/view_screen.dart';
 
@@ -60,7 +61,12 @@ class UserAppBar extends StatelessWidget {
           ),
           MenuItem(
             title: "Edit User Details",
-            press: () {},
+            press: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const UserEditlist()),
+              );
+            },
           ),
         ],
       ),
