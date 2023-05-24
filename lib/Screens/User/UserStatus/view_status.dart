@@ -18,7 +18,7 @@ class Statusviewlist extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const UserAppBar(),
+            UserAppBar(),
             const Spacer(),
             Center(
               child: Padding(

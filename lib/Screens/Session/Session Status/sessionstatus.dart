@@ -70,13 +70,16 @@ class _SessionStatuslistState extends State<SessionStatuslist> {
 
                 return DataRow(
                   cells: [
-                    DataCell(Text(sessionData['SessionId'] ?? '')),
+                    DataCell(Text(sessionData['SessionId'].toString() ??
+                        '')), // Convert int to String
                     DataCell(Text(sessionData['Title'] ?? '')),
                     DataCell(Text(sessionData['Type'] ?? '')),
                     DataCell(Text(sessionData['Date'] ?? '')),
                     DataCell(Text(sessionData['Start Time'] ?? '')),
                     DataCell(Text(sessionData['End Time'] ?? '')),
-                    DataCell(Text(sessionData['Max ppl'] ?? '')),
+                    DataCell(Text(
+                        sessionData['Maximum Participants'].toString() ??
+                            '')), // Convert int to String
                     DataCell(Text(sessionData['Description'] ?? '')),
                     DataCell(Text(sessionData['participants'].join(', '))),
                     DataCell(

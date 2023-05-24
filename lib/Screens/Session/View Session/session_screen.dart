@@ -1,30 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:wb_admin/Screens/Session/View%20Session/sessionapp_bar.dart';
-import 'package:wb_admin/Screens/Session/View%20Session/session_body.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class SessionScreen extends StatelessWidget {
-  const SessionScreen({super.key});
+import 'package:wb_admin/Screens/Session/Edit%20Session/edit_body.dart';
+import 'package:wb_admin/Screens/Session/Session%20Status/sessionstatus.dart';
+import 'package:wb_admin/Screens/Session/View%20Session/session_body.dart';
+import 'package:wb_admin/Screens/User/UserStatus/userstatus.dart';
+
+import '../View Session/sessionapp_bar.dart';
+
+class SessionViewList extends StatelessWidget {
+  const SessionViewList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    // This size provide us total height and width  of our screen
     return Scaffold(
       body: SizedBox(
-        height: size.height,
-        // it will take full width
-        width: size.width,
-        child: const Column(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SessionAppBar(),
+            const SessionAppBar(),
+            const Spacer(),
+            Center(
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text(
+                  'WORKOUT SESSIONS ',
+                  style: GoogleFonts.bebasNeue(
+                    fontSize: 30,
+                  ),
+                ),
+              ),
+            ),
             Spacer(),
-            // It will cover 1/3 of free spaces
-            SessionBody(),
+            Container(
+              child: SingleChildScrollView(
+                child: Center(
+                  child: ViewSessionBody(),
+                ),
+              ),
+            ),
             Spacer(
               flex: 20,
             ),
-
             // it will cover 2/3 of free spaces
           ],
         ),

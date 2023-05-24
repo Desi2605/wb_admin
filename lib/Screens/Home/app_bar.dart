@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wb_admin/Screens/Challenges/Homescreen/challenge_screen.dart';
 import 'package:wb_admin/Screens/User/MainScreen/user_screen.dart';
 import 'package:wb_admin/Screens/Session/View%20Session/session_screen.dart';
 import 'menu_item.dart';
@@ -24,6 +25,12 @@ class CustomAppBar extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
+          Image.asset(
+            "assets/images/Logo2.png",
+            height: 50,
+            width: 80,
+            alignment: Alignment.topCenter,
+          ),
           const SizedBox(width: 10),
           Text(
             "UNITEN WORKOUT BUDDIES ADMIN".toUpperCase(),
@@ -48,13 +55,20 @@ class CustomAppBar extends StatelessWidget {
             press: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const SessionScreen()),
+                MaterialPageRoute(
+                    builder: (context) => const SessionViewList()),
               );
             },
           ),
           MenuItem(
             title: "Workout Challenges",
-            press: () {},
+            press: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ChallengeScreen()),
+              );
+            },
           ),
           MenuItem(
             title: "Rewards",

@@ -4,7 +4,6 @@ import 'package:wb_admin/constant.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_config.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -39,7 +38,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const HomeScreen(),
+      home: HomeScreen(),
     );
   }
 }

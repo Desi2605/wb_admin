@@ -1,24 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:wb_admin/Screens/Session/Edit%20Session/EditSessionPage.dart';
+
 import 'package:wb_admin/Screens/Session/Edit%20Session/edit_body.dart';
-import 'package:wb_admin/Screens/Session/Session%20Status/sessionstatus.dart';
-import 'package:wb_admin/Screens/User/UserStatus/userstatus.dart';
 
 import '../View Session/sessionapp_bar.dart';
 
-class EditViewList extends StatelessWidget {
-  const EditViewList({Key? key}) : super(key: key);
+class SessionEditList extends StatelessWidget {
+  const SessionEditList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    // This size provides us the total height and width of our screen
     return Scaffold(
       body: SizedBox(
-        height: size.height,
-        // it will take full width
-        width: size.width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -28,7 +21,7 @@ class EditViewList extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.all(16.0),
                 child: Text(
-                  'WORKOUT SESSIONS EDIT',
+                  'WORKOUT SESSIONS ',
                   style: GoogleFonts.bebasNeue(
                     fontSize: 30,
                   ),
@@ -37,13 +30,11 @@ class EditViewList extends StatelessWidget {
             ),
             Spacer(),
             Container(
-              height: size.height * 0.7, // Adjust the height as needed
-              child: SingleChildScrollView(
-                child: Center(
-                  child: EditSessionBody(),
-                ),
+              child: Center(
+                child: EditSessionBody(),
               ),
             ),
+
             Spacer(
               flex: 20,
             ),

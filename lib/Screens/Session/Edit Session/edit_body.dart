@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'EditSessionPage.dart';
-
-class EditSessionBody extends StatelessWidget {
+class EditSessionBody extends StatefulWidget {
   const EditSessionBody({Key? key}) : super(key: key);
+
+  @override
+  _EditSessionBodyState createState() => _EditSessionBodyState();
+}
+
+class _EditSessionBodyState extends State<EditSessionBody> {
+  late List<Map<String, dynamic>> sessionsData;
+  late Map<String, dynamic> editedSessionData;
+
+  @override
+  void initState() {
+    super.initState();
+    sessionsData = [];
+    editedSessionData = {};
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +30,13 @@ class EditSessionBody extends StatelessWidget {
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
+          return CircularProgressIndicator();
         }
 
         final sessions = snapshot.data!.docs;
+        sessionsData = sessions
+            .map((session) => session.data() as Map<String, dynamic>)
+            .toList();
 
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -88,8 +104,7 @@ class EditSessionBody extends StatelessWidget {
                 ),
               ),
             ],
-            rows: sessions.map((session) {
-              final sessionData = session.data() as Map<String, dynamic>;
+            rows: sessionsData.map((sessionData) {
               final participants = sessionData['participants'] as List<dynamic>;
               final participantNames = participants.join(', ');
 
@@ -134,13 +149,10 @@ class EditSessionBody extends StatelessWidget {
                   DataCell(IconButton(
                     icon: Icon(Icons.edit),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              EditSessionPage(sessionId: session.id),
-                        ),
-                      );
+                      setState(() {
+                        editedSessionData = sessionData;
+                      });
+                      _navigateToEditPage(context);
                     },
                   )),
                 ],
@@ -149,6 +161,116 @@ class EditSessionBody extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  void _navigateToEditPage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EditPage(
+          sessionData: editedSessionData,
+        ),
+      ),
+    ).then((editedData) {
+      if (editedData != null) {
+        setState(() {
+          editedSessionData = editedData;
+        });
+        _updateSessionData();
+      }
+    });
+  }
+
+  void _updateSessionData() async {
+    final sessionDocRef = FirebaseFirestore.instance
+        .collection('WorkoutSession')
+        .doc(editedSessionData['sessionId']);
+
+    final sessionDocSnapshot = await sessionDocRef.get();
+    if (!sessionDocSnapshot.exists) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Session does not exist')),
+      );
+      return;
+    }
+
+    try {
+      await sessionDocRef.update(editedSessionData);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Session updated successfully')),
+      );
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to update session: $error')),
+      );
+    }
+  }
+}
+
+class EditPage extends StatefulWidget {
+  final Map<String, dynamic> sessionData;
+
+  const EditPage({Key? key, required this.sessionData}) : super(key: key);
+
+  @override
+  _EditPageState createState() => _EditPageState();
+}
+
+class _EditPageState extends State<EditPage> {
+  late TextEditingController titleController;
+  late TextEditingController typeController;
+
+  @override
+  void initState() {
+    super.initState();
+    titleController = TextEditingController(text: widget.sessionData['Title']);
+    typeController = TextEditingController(text: widget.sessionData['Type']);
+  }
+
+  @override
+  void dispose() {
+    titleController.dispose();
+    typeController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Edit Session'),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextFormField(
+              controller: titleController,
+              decoration: InputDecoration(labelText: 'Session Title'),
+            ),
+            TextFormField(
+              controller: typeController,
+              decoration: InputDecoration(labelText: 'Session Type'),
+            ),
+            // Add more fields for other session details that you want to edit
+            ElevatedButton(
+              onPressed: () {
+                final editedData = {
+                  'SessionId': widget.sessionData['SessionId'],
+                  'Title': titleController.text,
+                  'Type': typeController.text,
+                  // Add more fields for other session details that you want to update
+                };
+
+                Navigator.pop(context, editedData);
+              },
+              child: Text('Save'),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

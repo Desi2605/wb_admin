@@ -36,7 +36,7 @@ class SessionAppBar extends StatelessWidget {
             press: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const HomeScreen()),
+                MaterialPageRoute(builder: (context) => HomeScreen()),
               );
             },
           ),
@@ -49,7 +49,8 @@ class SessionAppBar extends StatelessWidget {
             press: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const EditViewList()),
+                MaterialPageRoute(
+                    builder: (context) => const SessionEditList()),
               );
             },
           ),

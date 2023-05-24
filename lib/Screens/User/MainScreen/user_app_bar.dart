@@ -6,7 +6,7 @@ import 'package:wb_admin/Screens/User/UserStatus/view_status.dart';
 import 'package:wb_admin/Screens/User/Viewuser/view_screen.dart';
 
 class UserAppBar extends StatelessWidget {
-  const UserAppBar({super.key});
+  const UserAppBar({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class UserAppBar extends StatelessWidget {
             press: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const HomeScreen()),
+                MaterialPageRoute(builder: (context) => HomeScreen()),
               );
             },
           ),

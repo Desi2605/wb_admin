@@ -14,7 +14,7 @@ class UserScreen extends StatelessWidget {
         height: size.height,
         // it will take full width
         width: size.width,
-        child: const Column(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             UserAppBar(),
