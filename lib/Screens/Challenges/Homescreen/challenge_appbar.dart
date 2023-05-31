@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:wb_admin/Screens/Challenges/CreateChallenge/CCscreen.dart';
+
 import 'package:wb_admin/Screens/Challenges/CreateChallenge/create_challenge.dart';
+import 'package:wb_admin/Screens/Challenges/Edit%20Challenge/editchallenge_body.dart';
+import 'package:wb_admin/Screens/Challenges/Edit%20Challenge/edithchallenge_screen.dart';
 
 import 'package:wb_admin/Screens/Challenges/ViewChallenge/view_screen.dart';
 import 'package:wb_admin/Screens/Home/home_screen.dart';
@@ -47,7 +49,8 @@ class ChallengeAppBar extends StatelessWidget {
             press: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => CCScreen()),
+                MaterialPageRoute(
+                    builder: (context) => CreateWorkoutChallenge()),
               );
             },
           ),
@@ -62,7 +65,12 @@ class ChallengeAppBar extends StatelessWidget {
           ),
           MenuItem(
             title: "Edit Challenges Details",
-            press: () {},
+            press: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ChallengeEdit()),
+              );
+            },
           ),
         ],
       ),

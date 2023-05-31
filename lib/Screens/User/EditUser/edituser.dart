@@ -26,12 +26,6 @@ class Editlist extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 100),
           child: SingleChildScrollView(
             child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.black,
-                  width: 1.0,
-                ),
-              ),
               child: DataTable(
                 columns: <DataColumn>[
                   DataColumn(

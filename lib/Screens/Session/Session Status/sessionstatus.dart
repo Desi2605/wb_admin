@@ -81,7 +81,11 @@ class _SessionStatuslistState extends State<SessionStatuslist> {
                         sessionData['Maximum Participants'].toString() ??
                             '')), // Convert int to String
                     DataCell(Text(sessionData['Description'] ?? '')),
-                    DataCell(Text(sessionData['participants'].join(', '))),
+                    DataCell(Text(
+                        (sessionData['participants'] as List<dynamic>?)
+                                ?.join(', ') ??
+                            '')),
+
                     DataCell(
                       DropdownButton<String>(
                         value: status,

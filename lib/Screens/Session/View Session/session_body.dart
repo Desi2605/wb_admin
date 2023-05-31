@@ -22,110 +22,114 @@ class ViewSessionBody extends StatelessWidget {
 
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          child: DataTable(
-            columnSpacing: 10,
-            columns: [
-              DataColumn(
-                label: Container(
-                  width: 80,
-                  child: Text('Session ID'),
+          child: SingleChildScrollView(
+            child: DataTable(
+              columnSpacing: 10,
+              columns: [
+                DataColumn(
+                  label: Container(
+                    width: 80,
+                    child: Text('Session ID'),
+                  ),
                 ),
-              ),
-              DataColumn(
-                label: Container(
-                  width: 120,
-                  child: Text('Session Title'),
+                DataColumn(
+                  label: Container(
+                    width: 120,
+                    child: Text('Session Title'),
+                  ),
                 ),
-              ),
-              DataColumn(
-                label: Container(
-                  width: 100,
-                  child: Text('Session Type'),
+                DataColumn(
+                  label: Container(
+                    width: 100,
+                    child: Text('Session Type'),
+                  ),
                 ),
-              ),
-              DataColumn(
-                label: Container(
-                  width: 80,
-                  child: Text('Date'),
+                DataColumn(
+                  label: Container(
+                    width: 80,
+                    child: Text('Date'),
+                  ),
                 ),
-              ),
-              DataColumn(
-                label: Container(
-                  width: 100,
-                  child: Text('Start Time'),
+                DataColumn(
+                  label: Container(
+                    width: 100,
+                    child: Text('Start Time'),
+                  ),
                 ),
-              ),
-              DataColumn(
-                label: Container(
-                  width: 100,
-                  child: Text('End Time'),
+                DataColumn(
+                  label: Container(
+                    width: 100,
+                    child: Text('End Time'),
+                  ),
                 ),
-              ),
-              DataColumn(
-                label: Container(
-                  width: 100,
-                  child: Text('Max People'),
+                DataColumn(
+                  label: Container(
+                    width: 100,
+                    child: Text('Max People'),
+                  ),
                 ),
-              ),
-              DataColumn(
-                label: Container(
-                  width: 120,
-                  child: Text('Description'),
+                DataColumn(
+                  label: Container(
+                    width: 120,
+                    child: Text('Description'),
+                  ),
                 ),
-              ),
-              DataColumn(
-                label: Container(
-                  width: 120,
-                  child: Text('Participants'),
+                DataColumn(
+                  label: Container(
+                    width: 120,
+                    child: Text('Participants'),
+                  ),
                 ),
-              ),
-            ],
-            rows: sessions.map((session) {
-              final sessionData = session.data() as Map<String, dynamic>;
-              final participants = sessionData['participants'] as List<dynamic>;
-              final participantNames = participants.join(', ');
+              ],
+              rows: sessions.map((session) {
+                final sessionData = session.data() as Map<String, dynamic>;
+                final participants =
+                    sessionData['participants'] as List<dynamic>? ?? [];
+                final participantNames = participants.join(', ');
 
-              return DataRow(
-                cells: [
-                  DataCell(Container(
-                    width: 80,
-                    child: Text(sessionData['SessionId'] ?? ''),
-                  )),
-                  DataCell(Container(
-                    width: 120,
-                    child: Text(sessionData['Title'] ?? ''),
-                  )),
-                  DataCell(Container(
-                    width: 100,
-                    child: Text(sessionData['Type'] ?? ''),
-                  )),
-                  DataCell(Container(
-                    width: 80,
-                    child: Text(sessionData['Date'] ?? ''),
-                  )),
-                  DataCell(Container(
-                    width: 100,
-                    child: Text(sessionData['Start Time'] ?? ''),
-                  )),
-                  DataCell(Container(
-                    width: 100,
-                    child: Text(sessionData['End Time'] ?? ''),
-                  )),
-                  DataCell(Container(
-                    width: 100,
-                    child: Text(sessionData['Max ppl'] ?? ''),
-                  )),
-                  DataCell(Container(
-                    width: 120,
-                    child: Text(sessionData['Description'] ?? ''),
-                  )),
-                  DataCell(Container(
-                    width: 120,
-                    child: Text(participantNames),
-                  )),
-                ],
-              );
-            }).toList(),
+                return DataRow(
+                  cells: [
+                    DataCell(Container(
+                      width: 80,
+                      child: Text(sessionData['SessionId'] ?? ''),
+                    )),
+                    DataCell(Container(
+                      width: 120,
+                      child: Text(sessionData['Title'] ?? ''),
+                    )),
+                    DataCell(Container(
+                      width: 100,
+                      child: Text(sessionData['Type'] ?? ''),
+                    )),
+                    DataCell(Container(
+                      width: 80,
+                      child: Text(sessionData['Date'] ?? ''),
+                    )),
+                    DataCell(Container(
+                      width: 100,
+                      child: Text(sessionData['Start Time'] ?? ''),
+                    )),
+                    DataCell(Container(
+                      width: 100,
+                      child: Text(sessionData['End Time'] ?? ''),
+                    )),
+                    DataCell(Container(
+                      width: 100,
+                      child: Text(
+                          sessionData['Maximum Participants'].toString() ?? ''),
+                    )),
+                    DataCell(Container(
+                      width: 120,
+                      child: Text(sessionData['Description'] ?? ''),
+                    )),
+                    DataCell(Container(
+                      width: 120,
+                      child: Text(participantNames),
+                    )),
+                  ],
+                );
+              }).toList(),
+            ),
           ),
         );
       },

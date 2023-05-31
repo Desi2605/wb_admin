@@ -3,6 +3,7 @@ import 'package:wb_admin/Screens/Home/home_screen.dart';
 import 'package:wb_admin/Screens/Home/menu_item.dart';
 import 'package:wb_admin/Screens/Session/Edit%20Session/edit_screen.dart';
 import 'package:wb_admin/Screens/Session/Session%20Status/view_status.dart';
+import 'package:wb_admin/Screens/Session/View%20Session/session_screen.dart';
 
 class SessionAppBar extends StatelessWidget {
   const SessionAppBar({super.key});
@@ -42,7 +43,12 @@ class SessionAppBar extends StatelessWidget {
           ),
           MenuItem(
             title: "View Sessions",
-            press: () {},
+            press: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SessionViewList()),
+              );
+            },
           ),
           MenuItem(
             title: "Session Edit",

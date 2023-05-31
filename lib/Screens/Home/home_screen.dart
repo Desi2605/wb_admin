@@ -1,99 +1,62 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:wb_admin/Screens/Home/app_bar.dart';
-import 'package:wb_admin/Screens/Home/body.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // Initialize Firebase Analytics
-
-    // Fetch user login data from Firebase Analytics
-    Future<List<charts.Series<LoginData, String>>> fetchLoginData() async {
-      // Retrieve user login data from Firebase Analytics
-      // ...
-
-      // Transform the data into the desired format for the chart
-      List<LoginData> chartData = [
-        LoginData(label: 'Monday', value: 10),
-        LoginData(label: 'Tuesday', value: 20),
-        LoginData(label: 'Wednesday', value: 15),
-        LoginData(label: 'Thursday', value: 8),
-        LoginData(label: 'Friday', value: 12),
-      ];
-
-      // Return a list of chart series
-      return [
-        charts.Series<LoginData, String>(
-          id: 'loginData',
-          data: chartData,
-          domainFn: (LoginData data, _) => data.label,
-          measureFn: (LoginData data, _) => data.value,
-          labelAccessorFn: (LoginData data, _) =>
-              '${data.label}: ${data.value}',
-        ),
-      ];
-    }
-
-    // Build the chart widget
-    Widget buildLoginChart() {
-      return FutureBuilder<List<charts.Series<LoginData, String>>>(
-        future: fetchLoginData(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return charts.BarChart(
-              snapshot.data!,
-              animate: true,
-            );
-          } else if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
-          } else {
-            return CircularProgressIndicator();
-          }
-        },
-      );
-    }
-
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(
-                'assets/images/bg1.png'), // Replace with your image path
+            image: AssetImage('assets/images/bg1.png'),
             fit: BoxFit.cover,
           ),
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             CustomAppBar(),
-            Expanded(
-              flex: 1,
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      child: Body(), // Replace with your desired widget
-                    ),
+            SizedBox(height: 120),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(40, 16, 40, 8),
+              child: Container(
+                margin: EdgeInsets.only(bottom: 16),
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  "Welcome Admin",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.bebasNeue(
+                    fontSize: 45,
+                    fontWeight: FontWeight.bold,
                   ),
-                ],
+                ),
               ),
             ),
-            //Expanded(
-            //flex: 1,
-            //child: Row(
-            // children: <Widget>[
-            //Expanded(
-            //child: Container(
-            //  child: buildLoginChart(), // Display the login chart here
-            //),
-            //),
-            // ],
-            //),
-            //),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Expanded(
+                  child: DocumentCountCard(),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: SessionCountCard(),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: ChallengeCountCard(),
+                ),
+              ],
+            ),
           ],
         ),
       ),
@@ -101,10 +64,179 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-// Example class for login data
-class LoginData {
-  final String label;
-  final int value;
+class DocumentCountCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: EdgeInsets.all(16.0),
+      elevation: 4.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Row(
+          children: [
+            Icon(Icons.person, size: 40, color: Colors.blue),
+            SizedBox(width: 16),
+            Expanded(
+              child: Center(
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('Users')
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      final count = snapshot.data!.size;
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Total Users Registered',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            count.toString(),
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      );
+                    }
+                    return CircularProgressIndicator();
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
-  LoginData({required this.label, required this.value});
+class SessionCountCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: EdgeInsets.all(16.0),
+      elevation: 4.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Row(
+          children: [
+            Icon(Icons.calendar_today, size: 40, color: Colors.orange),
+            SizedBox(width: 16),
+            Expanded(
+              child: Center(
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('WorkoutSession')
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      final count = snapshot.data!.size;
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Total Workout Sessions',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            count.toString(),
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      );
+                    }
+                    return CircularProgressIndicator();
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ChallengeCountCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: EdgeInsets.all(16.0),
+      elevation: 4.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Row(
+          children: [
+            Icon(Icons.fitness_center, size: 40, color: Colors.green),
+            SizedBox(width: 16),
+            Expanded(
+              child: Center(
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('WorkoutChallenges')
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      final count = snapshot.data!.size;
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Total Workout Challenges',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            count.toString(),
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      );
+                    }
+                    return CircularProgressIndicator();
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

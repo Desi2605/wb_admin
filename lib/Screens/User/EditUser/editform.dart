@@ -98,25 +98,55 @@ class _EditFormState extends State<EditForm> {
               ),
             ),
             Spacer(),
-            TextFormField(
-              controller: _firstnameController,
-              decoration: InputDecoration(labelText: 'First Name'),
-            ),
-            TextFormField(
-              controller: _lastnameController,
-              decoration: InputDecoration(labelText: 'Last Name'),
-            ),
-            TextFormField(
-              controller: _usernameController,
-              decoration: InputDecoration(labelText: 'Username'),
-            ),
-            TextFormField(
-              controller: _emailController,
-              decoration: InputDecoration(labelText: 'Email'),
-            ),
-            ElevatedButton(
-              onPressed: updateUserDetails,
-              child: Text('Update'),
+            Center(
+              child: Container(
+                width: size.width * 0.8, // Adjust the width as needed
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.3),
+                      spreadRadius: 3,
+                      blurRadius: 5,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: _firstnameController,
+                      decoration: InputDecoration(
+                        labelText: 'First Name',
+                      ),
+                    ),
+                    TextFormField(
+                      controller: _lastnameController,
+                      decoration: InputDecoration(
+                        labelText: 'Last Name',
+                      ),
+                    ),
+                    TextFormField(
+                      controller: _usernameController,
+                      decoration: InputDecoration(
+                        labelText: 'Username',
+                      ),
+                    ),
+                    TextFormField(
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        labelText: 'Email',
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: updateUserDetails,
+                      child: Text('Update'),
+                    ),
+                  ],
+                ),
+              ),
             ),
             Spacer(
               flex: 15,

@@ -17,90 +17,76 @@ class Viewlist extends StatelessWidget {
           return const CircularProgressIndicator();
         }
 
-        // Process the data and build the table
         final users = snapshot.data!.docs;
 
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 100),
-          child: SingleChildScrollView(
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.black,
-                  width: 1.0,
+        return SingleChildScrollView(
+          child: DataTable(
+            columns: <DataColumn>[
+              DataColumn(
+                label: Center(
+                  child: Text(
+                    'No',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
+                numeric: false,
               ),
-              child: DataTable(
-                columns: <DataColumn>[
-                  DataColumn(
-                    label: Center(
-                      child: Text(
-                        'No',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    numeric: false,
-                  ),
-                  DataColumn(
-                    label: Center(child: Text('Firstname')),
-                  ),
-                  DataColumn(
-                    label: Center(child: Text('Lastname')),
-                  ),
-                  DataColumn(
-                    label: Center(child: Text('Username')),
-                  ),
-                  DataColumn(
-                    label: Center(child: Text('Email')),
-                  ),
-                  DataColumn(
-                    label: Center(child: Text('Account Status')),
-                  ),
+              DataColumn(
+                label: Center(child: Text('Firstname')),
+              ),
+              DataColumn(
+                label: Center(child: Text('Lastname')),
+              ),
+              DataColumn(
+                label: Center(child: Text('Username')),
+              ),
+              DataColumn(
+                label: Center(child: Text('Email')),
+              ),
+              DataColumn(
+                label: Center(child: Text('Account Status')),
+              ),
+            ],
+            rows: users.asMap().entries.map((entry) {
+              final index = entry.key + 1;
+              final user = entry.value;
+              final userData = user.data() as Map<String, dynamic>;
 
-                  // Add more columns for other user details
+              return DataRow(
+                cells: <DataCell>[
+                  DataCell(
+                    Center(
+                      child: Text('$index'),
+                    ),
+                  ),
+                  DataCell(
+                    Center(
+                      child: Text(userData['Firstname']),
+                    ),
+                  ),
+                  DataCell(
+                    Center(
+                      child: Text(userData['Lastname']),
+                    ),
+                  ),
+                  DataCell(
+                    Center(
+                      child: Text(userData['Username']),
+                    ),
+                  ),
+                  DataCell(
+                    Center(
+                      child: Text(userData['Email']),
+                    ),
+                  ),
+                  DataCell(
+                    Center(
+                      child: Text(userData['AccountStatus']),
+                    ),
+                  ),
                 ],
-                rows: users.asMap().entries.map((entry) {
-                  final index = entry.key + 1;
-                  final user = entry.value;
-                  final userData = user.data() as Map<String, dynamic>;
-                  return DataRow(
-                    cells: <DataCell>[
-                      DataCell(
-                        Center(
-                          child: Text('$index'),
-                        ),
-                      ),
-                      DataCell(
-                        Center(
-                          child: Text(userData['Firstname']),
-                        ),
-                      ),
-                      DataCell(
-                        Center(
-                          child: Text(userData['Lastname']),
-                        ),
-                      ),
-                      DataCell(
-                        Center(
-                          child: Text(userData['Username']),
-                        ),
-                      ),
-                      DataCell(
-                        Center(
-                          child: Text(userData['Email']),
-                        ),
-                      ),
-                      DataCell(
-                        Center(
-                          child: Text(userData['AccountStatus']),
-                        ),
-                      ),
-                      // Add more cells for other user details
-                    ],
-                  );
-                }).toList(),
-              ),
-            ),
+              );
+            }).toList(),
           ),
         );
       },

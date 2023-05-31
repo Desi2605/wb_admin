@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:wb_admin/Screens/Home/home_screen.dart';
+import 'package:wb_admin/Screens/Home/register.dart';
 import 'package:wb_admin/constant.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'Screens/Home/login.dart';
 import 'firebase_config.dart';
 
 void main() async {
@@ -38,7 +40,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomeScreen(),
+      home: LoginPage(),
     );
   }
 }

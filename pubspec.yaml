@@ -44,6 +44,9 @@ dependencies:
   intl: ^0.17.0
   firebase_analytics: 
   flutter_charts: ^0.5.1
+  flutter_datetime_picker: ^1.5.1
+  googleapis_auth: ^1.4.1
+  carousel_slider: ^4.2.1
   
 
 dev_dependencies:
