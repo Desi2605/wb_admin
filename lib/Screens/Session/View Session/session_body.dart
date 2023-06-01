@@ -80,6 +80,12 @@ class ViewSessionBody extends StatelessWidget {
                     child: Text('Participants'),
                   ),
                 ),
+                DataColumn(
+                  label: Container(
+                    width: 120,
+                    child: Text('Status'),
+                  ),
+                ),
               ],
               rows: sessions.map((session) {
                 final sessionData = session.data() as Map<String, dynamic>;
@@ -125,6 +131,10 @@ class ViewSessionBody extends StatelessWidget {
                     DataCell(Container(
                       width: 120,
                       child: Text(participantNames),
+                    )),
+                    DataCell(Container(
+                      width: 120,
+                      child: Text(sessionData['SessionStatus'] ?? ''),
                     )),
                   ],
                 );

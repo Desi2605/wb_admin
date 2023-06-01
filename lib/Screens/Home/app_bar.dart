@@ -47,7 +47,7 @@ class CustomAppBar extends StatelessWidget {
             press: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const UserScreen()),
+                MaterialPageRoute(builder: (context) => UserScreen()),
               );
             },
           ),
