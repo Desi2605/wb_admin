@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:wb_admin/Screens/Challenges/Homescreen/challenge_screen.dart';
-import 'package:wb_admin/Screens/Home/login.dart';
-import 'package:wb_admin/Screens/User/MainScreen/user_screen.dart';
+import 'package:wb_admin/Screens/Home/home_screen.dart';
+import 'package:wb_admin/Screens/Home/menu_item.dart';
+import 'package:wb_admin/Screens/Session/Edit%20Session/edit_screen.dart';
+import 'package:wb_admin/Screens/Session/Session%20Status/view_status.dart';
 import 'package:wb_admin/Screens/Session/View%20Session/session_screen.dart';
+import 'package:wb_admin/Screens/report/Report%20Status/view.dart';
 import 'package:wb_admin/Screens/report/View%20Report/report_body.dart';
 import 'package:wb_admin/Screens/report/View%20Report/report_screen.dart';
-import 'menu_item.dart';
 
-class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({super.key});
+class ReportAppBar extends StatelessWidget {
+  const ReportAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +29,6 @@ class CustomAppBar extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-          Image.asset(
-            "assets/images/Logo2.png",
-            height: 50,
-            width: 80,
-            alignment: Alignment.topCenter,
-          ),
           const SizedBox(width: 10),
           Text(
             "UNITEN WORKOUT BUDDIES ADMIN".toUpperCase(),
@@ -42,52 +37,29 @@ class CustomAppBar extends StatelessWidget {
           const Spacer(),
           MenuItem(
             title: "Homepage",
-            press: () {},
-          ),
-          MenuItem(
-            title: "Users",
             press: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => UserScreen()),
+                MaterialPageRoute(builder: (context) => HomeScreen()),
               );
             },
           ),
           MenuItem(
-            title: "WorkOut Sessions",
+            title: "View Report",
             press: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => const SessionViewList()),
+                MaterialPageRoute(builder: (context) => ReportViewList()),
               );
             },
           ),
           MenuItem(
-            title: "Workout Challenges",
+            title: "Report Status",
             press: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const ChallengeScreen()),
-              );
-            },
-          ),
-          MenuItem(
-            title: "Reports",
-            press: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ReportViewList()),
-              );
-            },
-          ),
-          MenuItem(
-            title: "Log Out",
-            press: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => LoginPage()),
+                    builder: (context) => const ReportStatusScreen()),
               );
             },
           ),
