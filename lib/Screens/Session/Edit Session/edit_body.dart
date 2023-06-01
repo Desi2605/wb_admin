@@ -44,7 +44,6 @@ class _EditSessionBodyState extends State<EditSessionBody> {
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
             child: DataTable(
               columnSpacing: 10,
               columns: [
@@ -271,17 +270,20 @@ class _EditPageState extends State<EditPage> {
   @override
   void initState() {
     super.initState();
-    titleController = TextEditingController(text: widget.sessionData['Title']);
-    typeController = TextEditingController(text: widget.sessionData['Type']);
-    dateController = TextEditingController(text: widget.sessionData['Date']);
+    titleController =
+        TextEditingController(text: widget.sessionData['Title'] ?? '');
+    typeController =
+        TextEditingController(text: widget.sessionData['Type'] ?? '');
+    dateController =
+        TextEditingController(text: widget.sessionData['Date'] ?? '');
     startTimeController =
-        TextEditingController(text: widget.sessionData['Start Time']);
+        TextEditingController(text: widget.sessionData['Start Time'] ?? '');
     endTimeController =
-        TextEditingController(text: widget.sessionData['End Time']);
+        TextEditingController(text: widget.sessionData['End Time'] ?? '');
     maxPeopleController = TextEditingController(
-        text: widget.sessionData['Maximum Participants'].toString());
+        text: widget.sessionData['Maximum Participants']?.toString() ?? '');
     descriptionController =
-        TextEditingController(text: widget.sessionData['Description']);
+        TextEditingController(text: widget.sessionData['Description'] ?? '');
   }
 
   @override
@@ -432,7 +434,7 @@ class _EditPageState extends State<EditPage> {
                           ),
                         ],
                       ))),
-            )
+            ),
           ]),
     ));
   }

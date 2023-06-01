@@ -14,37 +14,34 @@ class SessionViewList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            const SessionAppBar(),
-            const Spacer(),
-            Center(
-              child: Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Text(
-                  'WORKOUT SESSIONS ',
-                  style: GoogleFonts.bebasNeue(
-                    fontSize: 30,
-                  ),
+      body: ListView(
+        children: <Widget>[
+          const SessionAppBar(),
+          const Spacer(),
+          Center(
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Text(
+                'WORKOUT SESSIONS',
+                style: GoogleFonts.bebasNeue(
+                  fontSize: 30,
                 ),
               ),
             ),
-            Spacer(),
-            Container(
-              child: SingleChildScrollView(
-                child: Center(
-                  child: ViewSessionBody(),
-                ),
+          ),
+          Spacer(),
+          Container(
+            child: SingleChildScrollView(
+              child: Center(
+                child: ViewSessionBody(),
               ),
             ),
-            Spacer(
-              flex: 20,
-            ),
-            // it will cover 2/3 of free spaces
-          ],
-        ),
+          ),
+          Spacer(
+            flex: 20,
+          ),
+          // it will cover 2/3 of free spaces
+        ],
       ),
     );
   }
